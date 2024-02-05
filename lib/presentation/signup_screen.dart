@@ -1,4 +1,6 @@
 import 'package:dairy_calculator/utils/routes.dart';
+import 'package:dairy_calculator/widget/bottom.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,42 +13,51 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-TextEditingController mobileController = TextEditingController();
+TextEditingController mobileController = TextEditingController(text: '+91');
 TextEditingController otpController = TextEditingController();
 final formkey = GlobalKey<FormState>();
 bool showOtpField = false;
-bool showsignupbutton = false;
+bool isSendingOTP = false;
+
+String? verifyId;
 
 class _SignUpState extends State<SignUp> {
+  final FocusNode _focusNodemobile = FocusNode();
+  final FocusNode _focusNodeotp = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNodemobile.dispose();
+    _focusNodeotp.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.only(top: 200.h, left: 20.w, right: 20.w),
         child: Form(
           key: formkey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 150.h, child: Image.asset("asset/CowLogo.png")),
               SizedBox(
                 height: 30.h,
               ),
               TextFormField(
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.digitsOnly
-                ],
+                focusNode: _focusNodemobile,
+                inputFormatters: [],
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null || value.isEmpty || value.length != 13) {
                     return " कृपया मोबाइल नंबर टाका";
-                  }
-                  if (value.length != 10) {
-                    return " कृपया 10 अंकी क्रमांक टाका";
                   }
                   return null;
                 },
@@ -54,7 +65,6 @@ class _SignUpState extends State<SignUp> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 },
                 controller: mobileController,
-                keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.black, fontSize: 17.sp),
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -68,14 +78,42 @@ class _SignUpState extends State<SignUp> {
                         borderSide: BorderSide(color: Colors.black)),
                     suffixIconColor: Colors.black,
                     suffixIcon: GestureDetector(
-                        onTap: () {
-                          if (formkey.currentState?.validate() ?? false) {
-                            setState(() {
-                              showOtpField = true;
-                            });
-                          }
-                        },
-                        child: const Icon(Icons.arrow_forward_rounded)),
+                      onTap: () async {
+                        if (formkey.currentState?.validate() ?? false) {
+                          setState(() {
+                            isSendingOTP = true;
+                          });
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            verificationCompleted:
+                                (PhoneAuthCredential credential) {},
+                            verificationFailed: (FirebaseAuthException ex) {},
+                            codeSent:
+                                (String verificationId, int? resendtoken) {
+                              setState(() {
+                                verifyId = verificationId;
+                                message();
+                                showOtpField = true;
+                                isSendingOTP = false;
+                              });
+                            },
+                            codeAutoRetrievalTimeout:
+                                (String verificationId) {},
+                            phoneNumber: mobileController.text.toString(),
+                          );
+                        }
+                      },
+                      child: isSendingOTP
+                          ? Padding(
+                              padding: EdgeInsets.only(right: 12.w),
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 4,
+                              ),
+                            )
+                          : Icon(
+                              Icons.arrow_forward_rounded,
+                              size: 30.sp,
+                            ),
+                    ),
                     hintText: " Enter Mobile Number ",
                     hintStyle: const TextStyle(color: Colors.black)),
               ),
@@ -84,10 +122,17 @@ class _SignUpState extends State<SignUp> {
               ),
               showOtpField
                   ? TextFormField(
+                      focusNode: _focusNodeotp,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(6),
                         FilteringTextInputFormatter.digitsOnly
                       ],
+                      validator: (value) {
+                        if (value != verifyId) {
+                          return "Invalid Otp";
+                        }
+                        return null;
+                      },
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
@@ -106,40 +151,21 @@ class _SignUpState extends State<SignUp> {
                               borderSide: BorderSide(color: Colors.black)),
                           suffixIconColor: Colors.black,
                           suffixIcon: GestureDetector(
-                              onTap: () {
-                                if (formkey.currentState?.validate() ?? false) {
-                                  setState(() {
-                                    showsignupbutton = true;
-                                  });
-                                }
+                              onTap: () async {
+                                PhoneAuthCredential credential =
+                                    PhoneAuthProvider.credential(
+                                        verificationId: verifyId.toString(),
+                                        smsCode: otpController.text.toString());
+                                FirebaseAuth.instance
+                                    .signInWithCredential(credential)
+                                    .then((value) {
+                                  context.push(Routes.info);
+                                });
                               },
-                              child: const Icon(Icons.arrow_forward_rounded)),
+                              child: Icon(Icons.arrow_forward_rounded,
+                                  size: 30.sp)),
                           hintText: " Enter 6 digit otp  ",
                           hintStyle: const TextStyle(color: Colors.black)),
-                    )
-                  : const SizedBox(),
-              SizedBox(
-                height: 20.h,
-              ),
-              showsignupbutton
-                  ? SizedBox(
-                      height: 57.h,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              side: const BorderSide(color: Colors.black),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)))),
-                          onPressed: () {
-                            context.push(Routes.home);
-                          },
-                          child: Text(
-                            "Sign up",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 15.sp),
-                          )),
                     )
                   : const SizedBox(),
             ],
@@ -147,5 +173,19 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  message() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      backgroundColor: Colors.green,
+      content: Text("Otp Send Successfully"),
+    ));
+  }
+
+  invalidmessage() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Invaild Otp"),
+    ));
   }
 }

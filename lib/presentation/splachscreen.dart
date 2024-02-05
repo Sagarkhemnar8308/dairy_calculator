@@ -14,7 +14,7 @@ class _SplachScreenState extends State<SplachScreen> {
  
  @override
   void initState() {
-  Future.delayed(const Duration(seconds: 1), () {
+  Future.delayed(const Duration(seconds: 3), () {
       context.push(Routes.signup);
     });
     super.initState();

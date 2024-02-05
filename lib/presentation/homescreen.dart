@@ -1,3 +1,4 @@
+import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return  SafeArea(
       child: Scaffold(
+        bottomNavigationBar: const CustomBottomNavigationBar(),
         appBar: AppBar(
           title: const Text("Welcome "),
         ),

@@ -1,11 +1,15 @@
+import 'package:dairy_calculator/firebase_options.dart';
 import 'package:dairy_calculator/logic/location/location_cubit.dart';
 import 'package:dairy_calculator/utils/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(const MyApp());
 }
