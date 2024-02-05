@@ -1,9 +1,6 @@
-import 'package:dairy_calculator/logic/location/location_cubit.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 
 class SplachScreen extends StatefulWidget {

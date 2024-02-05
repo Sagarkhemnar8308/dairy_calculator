@@ -12,9 +12,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return  SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Welcome "),
+        ),
         body: const Column(
           children: [
+            
         ]),
       ),
     );
