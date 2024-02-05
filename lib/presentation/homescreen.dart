@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +10,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(children: [Text("data")]),
+    return  SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: const Column(
+          children: [
+        ]),
+      ),
     );
   }
 }
