@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -54,7 +55,9 @@ class _SignUpState extends State<SignUp> {
               ),
               TextFormField(
                 focusNode: _focusNodemobile,
-                inputFormatters: [],
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(13),
+                ],
                 validator: (value) {
                   if (value == null || value.isEmpty || value.length != 13) {
                     return " कृपया मोबाइल नंबर टाका";
@@ -64,6 +67,8 @@ class _SignUpState extends State<SignUp> {
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus?.unfocus();
                 },
+               maxLength:13, 
+               // enabled: false,
                 controller: mobileController,
                 style: TextStyle(color: Colors.black, fontSize: 17.sp),
                 decoration: InputDecoration(
@@ -103,11 +108,10 @@ class _SignUpState extends State<SignUp> {
                         }
                       },
                       child: isSendingOTP
-                          ? Padding(
-                              padding: EdgeInsets.only(right: 12.w),
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 4,
-                              ),
+                          ? SizedBox(
+                              height: 10.h,
+                              width: 10.w,
+                              child: Lottie.asset("asset/loader.json"),
                             )
                           : Icon(
                               Icons.arrow_forward_rounded,
@@ -128,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       validator: (value) {
-                        if (value != verifyId) {
+                        if (verifyId != value) {
                           return "Invalid Otp";
                         }
                         return null;
