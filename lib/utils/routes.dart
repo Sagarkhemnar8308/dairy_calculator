@@ -1,5 +1,6 @@
 import 'package:dairy_calculator/presentation/Information.dart';
 import 'package:dairy_calculator/presentation/homescreen.dart';
+import 'package:dairy_calculator/presentation/profile_screen.dart';
 import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/presentation/splachscreen.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +10,11 @@ class Routes {
   static String splachScreen = '/splach';
   static String home = '/home';
   static String signup = "/signup";
-  static String info='/info';
+  static String profile = "/Profile";
+  static String info = '/info';
 
   GoRouter get router => _goRouter;
-  late final GoRouter _goRouter =
-      GoRouter(initialLocation: info, routes: [
+  late final GoRouter _goRouter = GoRouter(initialLocation: splachScreen, routes: [
     GoRoute(
       path: splachScreen,
       builder: (context, state) => const SplachScreen(),
@@ -26,9 +27,13 @@ class Routes {
       path: signup,
       builder: (context, state) => const SignUp(),
     ),
-     GoRoute(
+    GoRoute(
       path: info,
       builder: (context, state) => const Information(),
     ),
+    GoRoute(
+      path: profile,
+      builder: (context, state) => const ProfileScreen(),
+    )
   ]);
 }

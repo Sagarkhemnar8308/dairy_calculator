@@ -52,7 +52,6 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 30.h,
             ),
-
             TextformFieldWidget(
               focusNode: _focusNodemobile,
               formKey: mobileformkey,
