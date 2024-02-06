@@ -1,3 +1,4 @@
+import 'package:dairy_calculator/constant/color.dart';
 import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
@@ -27,15 +28,15 @@ bool showSubmit = false;
 
 class _InformationState extends State<Information> {
   final FocusNode _namefocusNode = FocusNode();
-   final FocusNode _surnamefocusNode = FocusNode();
-    final FocusNode _villagefocusNode = FocusNode();
-     final FocusNode _pincodefocusNode = FocusNode();
+  final FocusNode _surnamefocusNode = FocusNode();
+  final FocusNode _villagefocusNode = FocusNode();
+  final FocusNode _pincodefocusNode = FocusNode();
   @override
   void dispose() {
     _namefocusNode.dispose();
     _surnamefocusNode.dispose();
     _villagefocusNode.dispose();
-      _pincodefocusNode.dispose();
+    _pincodefocusNode.dispose();
     super.dispose();
   }
 
@@ -92,7 +93,6 @@ class _InformationState extends State<Information> {
                                     });
                                   }
                                 },
-
                                 child: Icon(
                                   Icons.arrow_forward_rounded,
                                   size: 30.sp,
@@ -305,14 +305,19 @@ class _InformationState extends State<Information> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
-                                        side: const BorderSide(color: Colors.black)),
+                                        side: const BorderSide(
+                                            color: Colors.black)),
                                     backgroundColor: Colors.white,
                                     disabledBackgroundColor: Colors.white,
                                   ),
                                   onPressed: () {
                                     context.push(Routes.home);
                                   },
-                                  child: const Text("Submit")),
+                                  child: const Text(
+                                    "Submit",
+                                    style: TextStyle(
+                                        color: AppColors.backgroundDark),
+                                  )),
                             )
                           : const SizedBox(),
                     ]))));

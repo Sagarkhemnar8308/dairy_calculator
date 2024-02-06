@@ -1,3 +1,4 @@
+import 'package:dairy_calculator/constant/images.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _SplachScreenState extends State<SplachScreen> {
         backgroundColor: Colors.white,
         extendBody: true,
         body: Center(
-          child: Image.asset("asset/CowLogo.png"),
+          child: Image.asset(Appimages.logoimg),
         ),
         bottomNavigationBar: const CustomBottomNavigationBar(),
       ),

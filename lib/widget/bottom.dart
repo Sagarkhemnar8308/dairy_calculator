@@ -7,10 +7,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.only(bottom: 9.h,top: 0.h,left: 20.w,right: 20.w),
           color: Colors.white,
           child: SizedBox(
-            height: 60.h,
+            height: 65.h,
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
