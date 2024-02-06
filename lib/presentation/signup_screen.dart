@@ -19,6 +19,7 @@ TextEditingController otpController = TextEditingController();
 final formkey = GlobalKey<FormState>();
 bool showOtpField = false;
 bool isSendingOTP = false;
+bool info = false;
 
 String? verifyId;
 
@@ -67,8 +68,8 @@ class _SignUpState extends State<SignUp> {
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus?.unfocus();
                 },
-               maxLength:13, 
-               // enabled: false,
+                maxLength: 13,
+                // enabled: false,
                 controller: mobileController,
                 style: TextStyle(color: Colors.black, fontSize: 17.sp),
                 decoration: InputDecoration(
@@ -132,8 +133,11 @@ class _SignUpState extends State<SignUp> {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       validator: (value) {
-                        if (verifyId != value) {
-                          return "Invalid Otp";
+                        if (value!.isEmpty) {
+                          return "Please Enter OTP ";
+                        }
+                        if (value.isNotEmpty) {
+                          return "";
                         }
                         return null;
                       },
@@ -155,19 +159,31 @@ class _SignUpState extends State<SignUp> {
                               borderSide: BorderSide(color: Colors.black)),
                           suffixIconColor: Colors.black,
                           suffixIcon: GestureDetector(
-                              onTap: () async {
-                                PhoneAuthCredential credential =
-                                    PhoneAuthProvider.credential(
-                                        verificationId: verifyId.toString(),
-                                        smsCode: otpController.text.toString());
-                                FirebaseAuth.instance
-                                    .signInWithCredential(credential)
-                                    .then((value) {
+                            onTap: () async {
+                              PhoneAuthCredential credential =
+                                  PhoneAuthProvider.credential(
+                                      verificationId: verifyId.toString(),
+                                      smsCode: otpController.text.toString());
+                              FirebaseAuth.instance
+                                  .signInWithCredential(credential)
+                                  .then((value) {
+                                setState(() {
+                                  info = true;
                                   context.push(Routes.info);
                                 });
-                              },
-                              child: Icon(Icons.arrow_forward_rounded,
-                                  size: 30.sp)),
+                              });
+                            },
+                            child: info
+                                ? SizedBox(
+                                    height: 10.h,
+                                    width: 10.w,
+                                    child: Lottie.asset("asset/loader.json"),
+                                  )
+                                : Icon(
+                                    Icons.arrow_forward_rounded,
+                                    size: 30.sp,
+                                  ),
+                          ),
                           hintText: " Enter 6 digit otp  ",
                           hintStyle: const TextStyle(color: Colors.black)),
                     )

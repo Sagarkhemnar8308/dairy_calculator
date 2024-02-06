@@ -1,7 +1,10 @@
 import 'package:dairy_calculator/presentation/signup_screen.dart';
+import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class Information extends StatefulWidget {
   const Information({super.key});
@@ -23,10 +26,16 @@ bool showpincode = false;
 bool showSubmit = false;
 
 class _InformationState extends State<Information> {
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _namefocusNode = FocusNode();
+   final FocusNode _surnamefocusNode = FocusNode();
+    final FocusNode _villagefocusNode = FocusNode();
+     final FocusNode _pincodefocusNode = FocusNode();
   @override
   void dispose() {
-    _focusNode.dispose();
+    _namefocusNode.dispose();
+    _surnamefocusNode.dispose();
+    _villagefocusNode.dispose();
+      _pincodefocusNode.dispose();
     super.dispose();
   }
 
@@ -45,7 +54,7 @@ class _InformationState extends State<Information> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TextFormField(
-                        focusNode: _focusNode,
+                        focusNode: _namefocusNode,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "कृपया प्रथम नाव प्रविष्ट करा";
@@ -83,6 +92,7 @@ class _InformationState extends State<Information> {
                                     });
                                   }
                                 },
+
                                 child: Icon(
                                   Icons.arrow_forward_rounded,
                                   size: 30.sp,
@@ -95,7 +105,7 @@ class _InformationState extends State<Information> {
                       ),
                       showSurname
                           ? TextFormField(
-                              focusNode: _focusNode,
+                              focusNode: _surnamefocusNode,
                               inputFormatters: [],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -129,18 +139,26 @@ class _InformationState extends State<Information> {
                                           BorderSide(color: Colors.black)),
                                   suffixIconColor: Colors.black,
                                   suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        if (formkey.currentState?.validate() ??
-                                            false) {
-                                          setState(() {
-                                            showVillage = true;
-                                          });
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_forward_rounded,
-                                        size: 30.sp,
-                                      )),
+                                    onTap: () {
+                                      if (formkey.currentState?.validate() ??
+                                          false) {
+                                        setState(() {
+                                          showVillage = true;
+                                        });
+                                      }
+                                    },
+                                    child: showVillage
+                                        ? SizedBox(
+                                            height: 10.h,
+                                            width: 10.w,
+                                            child: Lottie.asset(
+                                                "asset/loader.json"),
+                                          )
+                                        : Icon(
+                                            Icons.arrow_forward_rounded,
+                                            size: 30.sp,
+                                          ),
+                                  ),
                                   hintText: " Surname  ",
                                   hintStyle:
                                       const TextStyle(color: Colors.black)),
@@ -151,7 +169,7 @@ class _InformationState extends State<Information> {
                       ),
                       showVillage
                           ? TextFormField(
-                              focusNode: _focusNode,
+                              focusNode: _villagefocusNode,
                               inputFormatters: [],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -185,18 +203,26 @@ class _InformationState extends State<Information> {
                                           BorderSide(color: Colors.black)),
                                   suffixIconColor: Colors.black,
                                   suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        if (formkey.currentState?.validate() ??
-                                            false) {
-                                          setState(() {
-                                            showpincode = true;
-                                          });
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_forward_rounded,
-                                        size: 30.sp,
-                                      )),
+                                    onTap: () {
+                                      if (formkey.currentState?.validate() ??
+                                          false) {
+                                        setState(() {
+                                          showpincode = true;
+                                        });
+                                      }
+                                    },
+                                    child: showpincode
+                                        ? SizedBox(
+                                            height: 10.h,
+                                            width: 10.w,
+                                            child: Lottie.asset(
+                                                "asset/loader.json"),
+                                          )
+                                        : Icon(
+                                            Icons.arrow_forward_rounded,
+                                            size: 30.sp,
+                                          ),
+                                  ),
                                   hintText: " Village ",
                                   hintStyle:
                                       const TextStyle(color: Colors.black)),
@@ -207,7 +233,7 @@ class _InformationState extends State<Information> {
                       ),
                       showpincode
                           ? TextFormField(
-                              focusNode: _focusNode,
+                              focusNode: _pincodefocusNode,
                               inputFormatters: [],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -241,18 +267,26 @@ class _InformationState extends State<Information> {
                                           BorderSide(color: Colors.black)),
                                   suffixIconColor: Colors.black,
                                   suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        if (formkey.currentState?.validate() ??
-                                            false) {
-                                          setState(() {
-                                            showSubmit = true;
-                                          });
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_forward_rounded,
-                                        size: 30.sp,
-                                      )),
+                                    onTap: () {
+                                      if (formkey.currentState?.validate() ??
+                                          false) {
+                                        setState(() {
+                                          showSubmit = true;
+                                        });
+                                      }
+                                    },
+                                    child: showSubmit
+                                        ? SizedBox(
+                                            height: 10.h,
+                                            width: 10.w,
+                                            child: Lottie.asset(
+                                                "asset/loader.json"),
+                                          )
+                                        : Icon(
+                                            Icons.arrow_forward_rounded,
+                                            size: 30.sp,
+                                          ),
+                                  ),
                                   hintText: "Your village Pincode ",
                                   hintStyle:
                                       const TextStyle(color: Colors.black)),
@@ -263,7 +297,7 @@ class _InformationState extends State<Information> {
                       ),
                       showSubmit
                           ? Container(
-                            color: Colors.white,
+                              color: Colors.white,
                               height: 60.h,
                               width: double.infinity,
                               child: ElevatedButton(
@@ -271,11 +305,13 @@ class _InformationState extends State<Information> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
-                                        side: BorderSide(color: Colors.black)),
+                                        side: const BorderSide(color: Colors.black)),
                                     backgroundColor: Colors.white,
                                     disabledBackgroundColor: Colors.white,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    context.push(Routes.home);
+                                  },
                                   child: const Text("Submit")),
                             )
                           : const SizedBox(),
