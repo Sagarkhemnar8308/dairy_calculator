@@ -14,14 +14,14 @@ class Routes {
   static String info = '/info';
 
   GoRouter get router => _goRouter;
-  late final GoRouter _goRouter = GoRouter(initialLocation: splachScreen, routes: [
+  late final GoRouter _goRouter = GoRouter(initialLocation: info, routes: [
     GoRoute(
       path: splachScreen,
       builder: (context, state) => const SplachScreen(),
     ),
     GoRoute(
       path: home,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state)=> HomeScreen(),
     ),
     GoRoute(
       path: signup,

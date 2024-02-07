@@ -1,13 +1,11 @@
 import 'package:dairy_calculator/constant/color.dart';
 import 'package:dairy_calculator/constant/images.dart';
-import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textform_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 class Information extends StatefulWidget {
   const Information({super.key});
@@ -434,7 +432,7 @@ class _InformationState extends State<Information> {
                           ),
                         ),
                       )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ])),
         ));
   }

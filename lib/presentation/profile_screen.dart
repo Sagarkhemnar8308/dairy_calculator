@@ -13,15 +13,19 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextWidget(
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w500,
-          text:
-              " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
-        )
-      ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            TextWidget(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+              text:
+                  " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
+            )
+          ],
+        ),
+      ),
     );
   }
 }

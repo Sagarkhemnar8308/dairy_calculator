@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: const CustomBottomNavigationBar(),
         appBar: AppBar(
           toolbarHeight: 80.h,
+          automaticallyImplyLeading: false,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,33 +31,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 25.sp,
               ),
-              InkWell(
-                onTap: () {
-                  context.push(Routes.profile);
-                },
-                child: TextWidget(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                  text:
-                      " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
-                ),
+              TextWidget(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
+                text:
+                    " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
               )
             ],
           ),
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 5.w, top: 10.h),
-              child: Container(
-                height: 50.h,
-                width: 50.w,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(30.r)),
-                child: Center(
-                  child: TextWidget(
-                    text: nameController.text.substring(0, 1).toUpperCase(),
-                    color: Colors.white,
-                    fontSize: 17.sp,
+              child:   InkWell(
+                onTap: () {
+                  context.push(Routes.profile);
+                },
+                child: Container(
+                  height: 50.h,
+                  width: 50.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(30.r)),
+                  child: Center(
+                    child: TextWidget(
+                      text: nameController.text.substring(0, 1).toUpperCase(),
+                      color: Colors.white,
+                      fontSize: 17.sp,
+                    ),
                   ),
                 ),
               ),
