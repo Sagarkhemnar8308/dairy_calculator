@@ -21,7 +21,7 @@ class Routes {
     ),
     GoRoute(
       path: home,
-      builder: (context, state)=> HomeScreen(),
+      builder: (context, state)=>const HomeScreen(),
     ),
     GoRoute(
       path: signup,
