@@ -1,9 +1,9 @@
 import 'package:dairy_calculator/presentation/Information.dart';
+import 'package:dairy_calculator/repo/notification.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textwidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +15,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  NotificationServices notification = NotificationServices();
+
+  @override
+  void initState() {
+    super.initState();
+    notification.requestNotificationPermission();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(

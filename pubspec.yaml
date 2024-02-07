@@ -44,6 +44,9 @@ dependencies:
   get_storage: ^2.1.1
   firebase_auth: ^4.17.3
   firebase_core: ^2.25.3
+  firebase_messaging: ^14.7.15
+  flutter_local_notifications: ^16.3.2
+  app_settings: ^5.1.1
   lottie: ^3.0.0
 
 dev_dependencies:

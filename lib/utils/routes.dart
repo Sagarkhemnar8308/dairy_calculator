@@ -14,7 +14,7 @@ class Routes {
   static String info = '/info';
 
   GoRouter get router => _goRouter;
-  late final GoRouter _goRouter = GoRouter(initialLocation: splachScreen, routes: [
+  late final GoRouter _goRouter = GoRouter(initialLocation:info, routes: [
     GoRoute(
       path: splachScreen,
       builder: (context, state) => const SplachScreen(),
