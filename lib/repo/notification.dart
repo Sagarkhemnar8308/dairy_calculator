@@ -26,6 +26,13 @@ class NotificationServices {
     }
   }
 
+  void firebaseInit() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("Received message: ${message.notification?.title}");
+      print("Received message: ${message.notification?.body}");
+    });
+  }
+
   Future<String?> getDeviceToken() async {
     String? token = await messaging.getToken();
     return token;
@@ -38,10 +45,5 @@ class NotificationServices {
     });
   }
 
-  void firebaseInit(){
-    FirebaseMessaging.onMessage.listen((message) {
-      print(message.notification?.title.toString());
-      print(message.notification?.body.toString());
-    });
-  }
+  
 }
