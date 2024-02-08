@@ -15,14 +15,33 @@ class NotificationServices {
       sound: true,
     );
 
-    if(settings.authorizationStatus == AuthorizationStatus.authorized){
-            print("User permission Grant");
-    }else if(settings.authorizationStatus == AuthorizationStatus.provisional){
-            print("User permission provisional Grant");
-
-    }else{
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print("User permission Grant");
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print("User permission provisional Grant");
+    } else {
       AppSettings.openAppSettings();
       print("User denied permission");
     }
+  }
+
+  Future<String?> getDeviceToken() async {
+    String? token = await messaging.getToken();
+    return token;
+  }
+
+  void isRefreshToken() async {
+    messaging.onTokenRefresh.listen((event) {
+      event.toString();
+      print("refresh");
+    });
+  }
+
+  void firebaseInit(){
+    FirebaseMessaging.onMessage.listen((message) {
+      print(message.notification?.title.toString());
+      print(message.notification?.body.toString());
+    });
   }
 }
