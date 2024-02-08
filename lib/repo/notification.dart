@@ -15,7 +15,7 @@ class NotificationServices {
   void initLoaclNotification(
       BuildContext context, RemoteMessage message) async {
     var androidInitilizationSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitilizationSettings = DarwinInitializationSettings();
 
     var initializationSetting = InitializationSettings(

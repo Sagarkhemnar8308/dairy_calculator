@@ -1,20 +1,36 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorageUtils {
+class LocaleStorage {
   static late final SharedPreferences instance;
 
-  static Future<void> saveGeoLocation(double lat, double lon) async {
-    await instance.setDouble("latitude", lat);
-    await instance.setDouble("longitude", lon);
+  static Future<void> init() async {
+    instance = await SharedPreferences.getInstance();
   }
 
-  static double? getLatitude() {
-    final latitude = instance.getDouble('latitude');
-    return latitude;
+  static Future<void> saveUserID(String userID) async {
+    await instance.setString("userID", userID);
   }
 
-  static double? getLongitude() {
-    final latitude = instance.getDouble('longitude');
-    return latitude;
+  static Future<void> saveProfile(
+      String name, String surname, String village, String pincode) async {
+    await instance.setString("name", name);
+    await instance.setString("surname", surname);
+    await instance.setString("village", village);
+    await instance.setString("pincode", pincode);
+  }
+
+  static Future<Map<String, String?>> getProfile() async {
+    final SharedPreferences prefs = instance;
+    final String? name = prefs.getString('name');
+    final String? surname = prefs.getString('surname');
+    final String? village = prefs.getString('village');
+    final String? pincode = prefs.getString('pincode');
+
+    return {
+      'name': name,
+      'surname': surname,
+      'village': village,
+      'pincode': pincode,
+    };
   }
 }

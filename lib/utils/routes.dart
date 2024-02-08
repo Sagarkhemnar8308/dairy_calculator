@@ -3,6 +3,8 @@ import 'package:dairy_calculator/presentation/homescreen.dart';
 import 'package:dairy_calculator/presentation/profile_screen.dart';
 import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/presentation/splachscreen.dart';
+import 'package:dairy_calculator/utils/localpreferences.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -14,14 +16,15 @@ class Routes {
   static String info = '/info';
 
   GoRouter get router => _goRouter;
-  late final GoRouter _goRouter = GoRouter(initialLocation:splachScreen, routes: [
+  late final GoRouter _goRouter =
+      GoRouter(initialLocation: initilization(), routes: [
     GoRoute(
       path: splachScreen,
       builder: (context, state) => const SplachScreen(),
     ),
     GoRoute(
       path: home,
-      builder: (context, state)=>const HomeScreen(),
+      builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
       path: signup,
@@ -36,4 +39,14 @@ class Routes {
       builder: (context, state) => const ProfileScreen(),
     )
   ]);
+
+  String? initilization() {
+    String? userID = LocaleStorage.instance.getString("userID");
+    print("object user id is $userID");
+    if (userID != null && userID.isNotEmpty) {
+      return Routes.home;
+    } else {
+      return Routes.signup;
+    }
+  }
 }

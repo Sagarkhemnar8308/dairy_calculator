@@ -1,5 +1,6 @@
 import 'package:dairy_calculator/presentation/Information.dart';
 import 'package:dairy_calculator/repo/notification.dart';
+import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textwidget.dart';
@@ -15,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   NotificationServices notification = NotificationServices();
 
   @override
@@ -23,11 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     notification.requestNotificationPermission();
     notification.firebaseInit(context);
-  // notification.isRefreshToken();
-    notification.getDeviceToken().then((value){
-         print("Your device token $value");
+    // notification.isRefreshToken();
+    notification.getDeviceToken().then((value) {
+      print("Your device token $value");
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,59 +45,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 25.sp,
               ),
-              TextWidget(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
-                text:
-                    " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
-              )
+              // TextWidget(
+              //   fontSize: 20.sp,
+              //   fontWeight: FontWeight.w500,
+              //   text:
+              //       " ${nameController.text.substring(0, 1).toUpperCase()}${nameController.text.substring(1)} ${surnameController.text}",
+              // )
             ],
           ),
           actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 5.w, top: 10.h),
-              child:   InkWell(
-                onTap: () {
-                  context.push(Routes.profile);
-                },
-                child: Container(
-                  height: 50.h,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(30.r)),
-                  child: Center(
-                    child: TextWidget(
-                      text: nameController.text.substring(0, 1).toUpperCase(),
-                      color: Colors.white,
-                      fontSize: 17.sp,
-                    ),
-                  ),
-                ),
-              ),
-            )
+            // Padding(
+            //   padding: EdgeInsets.only(right: 5.w, top: 10.h),
+            //   child: InkWell(
+            //     onTap: () {
+            //       context.push(Routes.profile);
+            //     },
+            //     child: Container(
+            //       height: 50.h,
+            //       width: 50.w,
+            //       decoration: BoxDecoration(
+            //           color: Colors.grey,
+            //           borderRadius: BorderRadius.circular(30.r)),
+            //       child: Center(
+            //         child: TextWidget(
+            //           text: nameController.text.substring(0, 1).toUpperCase(),
+            //           color: Colors.white,
+            //           fontSize: 17.sp,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         ),
-        body: Column(children: [
-          const Divider(),
-          Row(
+        body: FutureBuilder<Map<String, String?>>(
+        future: LocaleStorage.getProfile(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          final profile = snapshot.data ?? {};
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 100.h,
-              )
+              Text('Name: ${profile['name'] ?? ''}'),
+              Text('Surname: ${profile['surname'] ?? ''}'),
+              Text('Village: ${profile['village'] ?? ''}'),
+              Text('Pincode: ${profile['pincode'] ?? ''}'),
             ],
-          ),
-          Row(
-            children: [],
-          ),
-          Row(
-            children: [],
-          ),
-          Row(
-            children: [],
-          ),
-        ]),
+          );
+        },
       ),
+    ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dairy_calculator/constant/images.dart';
+import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textform_widget.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -113,74 +115,6 @@ class _SignUpState extends State<SignUp> {
                 ),
                 hintText: "Enter Mobile Number ",
               ),
-
-              // TextFormField(
-              //   focusNode: _focusNodemobile,
-              //   inputFormatters: [
-              //     LengthLimitingTextInputFormatter(13),
-              //   ],
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty || value.length != 13) {
-              //       return " कृपया मोबाइल नंबर टाका";
-              //     }
-              //     return null;
-              //   },
-              //   onTapOutside: (event) {
-              //     FocusManager.instance.primaryFocus?.unfocus();
-              //   },
-              //   maxLength: 13,
-              //   controller: mobileController,
-              //   style: TextStyle(color: Colors.black, fontSize: 17.sp),
-              //   decoration: InputDecoration(
-              //       enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10)),
-              //       isDense: true,
-              //       contentPadding: const EdgeInsets.symmetric(
-              //           vertical: 20.0, horizontal: 20.0),
-              //       border: const OutlineInputBorder(
-              //           borderSide: BorderSide(color: Colors.black)),
-              //       errorBorder: const OutlineInputBorder(
-              //           borderSide: BorderSide(color: Colors.black)),
-              //       suffixIconColor: Colors.black,
-              //       suffixIcon: GestureDetector(
-              //         onTap: () async {
-              //           if (formkey.currentState?.validate() ?? false) {
-              //             setState(() {
-              //               isSendingOTP = true;
-              //             });
-              //             await FirebaseAuth.instance.verifyPhoneNumber(
-              //               verificationCompleted:
-              //                   (PhoneAuthCredential credential) {},
-              //               verificationFailed: (FirebaseAuthException ex) {},
-              //               codeSent:
-              //                   (String verificationId, int? resendtoken) {
-              //                 setState(() {
-              //                   verifyId = verificationId;
-              //                   message();
-              //                   showOtpField = true;
-              //                   isSendingOTP = false;
-              //                 });
-              //               },
-              //               codeAutoRetrievalTimeout:
-              //                   (String verificationId) {},
-              //               phoneNumber: mobileController.text.toString(),
-              //             );
-              //           }
-              //         },
-              //         child: isSendingOTP
-              //             ? SizedBox(
-              //                 height: 10.h,
-              //                 width: 10.w,
-              //                 child: Lottie.asset("asset/loader.json"),
-              //               )
-              //             : Icon(
-              //                 Icons.arrow_forward_rounded,
-              //                 size: 30.sp,
-              //               ),
-              //       ),
-              //       hintText: " Enter Mobile Number ",
-              //       hintStyle: const TextStyle(color: Colors.black)),
-              // ),
               SizedBox(
                 height: 20.h,
               ),
@@ -194,6 +128,9 @@ class _SignUpState extends State<SignUp> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please Enter OTP ";
+                        }
+                        if (verifyId.toString() != value) {
+                          return "please enter correct otp";
                         }
                         return null;
                       },
@@ -211,8 +148,11 @@ class _SignUpState extends State<SignUp> {
                                   smsCode: otpController.text.toString());
                           FirebaseAuth.instance
                               .signInWithCredential(credential)
-                              .then((value) {
+                              .then((value) async {
                             print('User token: ${value.user?.uid}');
+                            LocaleStorage.saveUserID(
+                                value.user?.uid.toString() ?? "");
+
                             setState(() {
                               info = true;
                               context.push(Routes.info);
@@ -233,68 +173,6 @@ class _SignUpState extends State<SignUp> {
                       hintText: " Enter 6 digit otp  ",
                     )
                   : const SizedBox(),
-              // ? TextFormField(
-              //     focusNode: _focusNodeotp,
-              //     inputFormatters: [
-              //       LengthLimitingTextInputFormatter(6),
-              //       FilteringTextInputFormatter.digitsOnly
-              //     ],
-              //     validator: (value) {
-              //       if (value!.isEmpty) {
-              //         return "Please Enter OTP ";
-              //       }
-              //       if (value.isNotEmpty) {
-              //         return "";
-              //       }
-              //       return null;
-              //     },
-              //     onTapOutside: (event) {
-              //       FocusManager.instance.primaryFocus?.unfocus();
-              //     },
-              //     controller: otpController,
-              //     keyboardType: TextInputType.number,
-              //     style: TextStyle(color: Colors.black, fontSize: 17.sp),
-              //     decoration: InputDecoration(
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10)),
-              //         isDense: true,
-              //         contentPadding: const EdgeInsets.symmetric(
-              //             vertical: 20.0, horizontal: 20.0),
-              //         border: const OutlineInputBorder(
-              //             borderSide: BorderSide(color: Colors.black)),
-              //         errorBorder: const OutlineInputBorder(
-              //             borderSide: BorderSide(color: Colors.black)),
-              //         suffixIconColor: Colors.black,
-              //         suffixIcon: GestureDetector(
-              //           onTap: () async {
-              //             PhoneAuthCredential credential =
-              //                 PhoneAuthProvider.credential(
-              //                     verificationId: verifyId.toString(),
-              //                     smsCode: otpController.text.toString());
-              //             FirebaseAuth.instance
-              //                 .signInWithCredential(credential)
-              //                 .then((value) {
-              //               setState(() {
-              //                 info = true;
-              //                 context.push(Routes.info);
-              //               });
-              //             });
-              //           },
-              //           child: info
-              //               ? SizedBox(
-              //                   height: 10.h,
-              //                   width: 10.w,
-              //                   child: Lottie.asset("asset/loader.json"),
-              //                 )
-              //               : Icon(
-              //                   Icons.arrow_forward_rounded,
-              //                   size: 30.sp,
-              //                 ),
-              //         ),
-              //         hintText: " Enter 6 digit otp  ",
-              //         hintStyle: const TextStyle(color: Colors.black)),
-              //   )
-              // : const SizedBox(),
             ],
           ),
         ),

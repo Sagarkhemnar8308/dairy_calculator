@@ -1,5 +1,6 @@
 import 'package:dairy_calculator/constant/color.dart';
 import 'package:dairy_calculator/constant/images.dart';
+import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textform_widget.dart';
@@ -95,51 +96,6 @@ class _InformationState extends State<Information> {
                       )),
                   hintText: " First Name ",
                 ),
-                // TextFormField(
-                //   focusNode: _namefocusNode,
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return "कृपया प्रथम नाव प्रविष्ट करा";
-                //     }
-                //     RegExp regex = RegExp(r'^[^ ](?!.*\s\s).*');
-
-                //     if (!regex.hasMatch(value)) {
-                //       return "कृपया बरोबर नाव टाका";
-                //     }
-
-                //     return null;
-                //   },
-                //   onTapOutside: (event) {
-                //     FocusManager.instance.primaryFocus?.unfocus();
-                //   },
-                //   controller: nameController,
-                //   style: TextStyle(color: Colors.black, fontSize: 17.sp),
-                //   decoration: InputDecoration(
-                //       enabledBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10)),
-                //       isDense: true,
-                //       contentPadding: const EdgeInsets.symmetric(
-                //           vertical: 20.0, horizontal: 20.0),
-                //       border: const OutlineInputBorder(
-                //           borderSide: BorderSide(color: Colors.black)),
-                //       errorBorder: const OutlineInputBorder(
-                //           borderSide: BorderSide(color: Colors.black)),
-                //       suffixIconColor: Colors.black,
-                //       suffixIcon: GestureDetector(
-                //           onTap: () {
-                //             if (formkey.currentState?.validate() ?? false) {
-                //               setState(() {
-                //                 showSurname = true;
-                //               });
-                //             }
-                //           },
-                //           child: Icon(
-                //             Icons.arrow_forward_rounded,
-                //             size: 30.sp,
-                //           )),
-                //       hintText: " First Name ",
-                //       hintStyle: const TextStyle(color: Colors.black)),
-                // ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -180,55 +136,6 @@ class _InformationState extends State<Information> {
                         hintText: " Surname  ",
                       )
                     : const SizedBox(),
-
-                // TextFormField(
-                //     focusNode: _surnamefocusNode,
-                //     inputFormatters: [],
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return " कृपया आडनाव प्रविष्ट करा";
-                //       }
-                //       RegExp regex = RegExp(r'^[^ ](?!.*\s\s).*');
-
-                //       if (!regex.hasMatch(value)) {
-                //         return "कृपया बरोबर नाव टाका";
-                //       }
-
-                //       return null;
-                //     },
-                //     onTapOutside: (event) {
-                //       FocusManager.instance.primaryFocus?.unfocus();
-                //     },
-                //     controller: surnameController,
-                //     style: TextStyle(color: Colors.black, fontSize: 17.sp),
-                //     decoration: InputDecoration(
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(10)),
-                //         isDense: true,
-                //         contentPadding: const EdgeInsets.symmetric(
-                //             vertical: 20.0, horizontal: 20.0),
-                //         border: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         errorBorder: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         suffixIconColor: Colors.black,
-                //         suffixIcon: GestureDetector(
-                //           onTap: () {
-                //             if (formkey.currentState?.validate() ?? false) {
-                //               setState(() {
-                //                 showVillage = true;
-                //               });
-                //             }
-                //           },
-                //           child: Icon(
-                //             Icons.arrow_forward_rounded,
-                //             size: 30.sp,
-                //           ),
-                //         ),
-                //         hintText: " Surname  ",
-                //         hintStyle: const TextStyle(color: Colors.black)),
-                //   )
-                // : const SizedBox(),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -269,55 +176,6 @@ class _InformationState extends State<Information> {
                         ),
                       )
                     : const SizedBox(),
-
-                //  TextFormField(
-                //     focusNode: _villagefocusNode,
-                //     inputFormatters: [],
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return " कृपया गावाचे नाव प्रविष्ट करा";
-                //       }
-                //       RegExp regex = RegExp(r'^[^ ](?!.*\s\s).*');
-
-                //       if (!regex.hasMatch(value)) {
-                //         return "कृपया बरोबर गावाचे नाव टाका";
-                //       }
-
-                //       return null;
-                //     },
-                //     onTapOutside: (event) {
-                //       FocusManager.instance.primaryFocus?.unfocus();
-                //     },
-                //     controller: village,
-                //     style: TextStyle(color: Colors.black, fontSize: 17.sp),
-                //     decoration: InputDecoration(
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(10)),
-                //         isDense: true,
-                //         contentPadding: const EdgeInsets.symmetric(
-                //             vertical: 20.0, horizontal: 20.0),
-                //         border: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         errorBorder: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         suffixIconColor: Colors.black,
-                //         suffixIcon: GestureDetector(
-                //           onTap: () {
-                //             if (formkey.currentState?.validate() ?? false) {
-                //               setState(() {
-                //                 showpincode = true;
-                //               });
-                //             }
-                //           },
-                //           child: Icon(
-                //             Icons.arrow_forward_rounded,
-                //             size: 30.sp,
-                //           ),
-                //         ),
-                //         hintText: " Village ",
-                //         hintStyle: const TextStyle(color: Colors.black)),
-                //   )
-                // : const SizedBox(),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -358,55 +216,6 @@ class _InformationState extends State<Information> {
                         hintText: "Your village Pincode ",
                       )
                     : const SizedBox(),
-
-                // TextFormField(
-                //     focusNode: _pincodefocusNode,
-                //     inputFormatters: const [],
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return " कृपया सहा अंकी पिनकोड वैध प्रविष्ट करा";
-                //       }
-                //       RegExp regex = RegExp(r'^[^ ](?!.*\s\s).*');
-
-                //       if (!regex.hasMatch(value)) {
-                //         return "कृपया बरोबर  सहा अंकी पिनकोड टाका";
-                //       }
-
-                //       return null;
-                //     },
-                //     onTapOutside: (event) {
-                //       FocusManager.instance.primaryFocus?.unfocus();
-                //     },
-                //     controller: otpController,
-                //     style: TextStyle(color: Colors.black, fontSize: 17.sp),
-                //     decoration: InputDecoration(
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(10)),
-                //         isDense: true,
-                //         contentPadding: const EdgeInsets.symmetric(
-                //             vertical: 20.0, horizontal: 20.0),
-                //         border: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         errorBorder: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.black)),
-                //         suffixIconColor: Colors.black,
-                //         suffixIcon: GestureDetector(
-                //           onTap: () {
-                //             if (formkey.currentState?.validate() ?? false) {
-                //               setState(() {
-                //                 showSubmit = true;
-                //               });
-                //             }
-                //           },
-                //           child: Icon(
-                //             Icons.arrow_forward_rounded,
-                //             size: 30.sp,
-                //           ),
-                //         ),
-                //         hintText: "Your village Pincode ",
-                //         hintStyle: const TextStyle(color: Colors.black)),
-                //   )
-                // : const SizedBox(),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -424,6 +233,11 @@ class _InformationState extends State<Information> {
                             ),
                           ),
                           onPressed: () {
+                            LocaleStorage.saveProfile(
+                                nameController.text,
+                                surnameController.text,
+                                village.text,
+                                pincode.text);
                             context.push(Routes.home);
                           },
                           child: const Text(
