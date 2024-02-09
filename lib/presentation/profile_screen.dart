@@ -1,8 +1,6 @@
-import 'package:dairy_calculator/presentation/Information.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
-import 'package:dairy_calculator/widget/textwidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

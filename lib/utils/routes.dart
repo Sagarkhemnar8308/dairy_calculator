@@ -4,7 +4,6 @@ import 'package:dairy_calculator/presentation/profile_screen.dart';
 import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/presentation/splachscreen.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {

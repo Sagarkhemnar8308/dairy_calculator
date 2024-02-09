@@ -2,17 +2,26 @@ import 'package:dairy_calculator/firebase_options.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   GoRouter.optionURLReflectsImperativeAPIs = true;
   await LocaleStorage.init();
   runApp(const MyApp());
 }
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print("main ${message.notification?.title}");
+  print("main ${message.notification?.body}");
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
