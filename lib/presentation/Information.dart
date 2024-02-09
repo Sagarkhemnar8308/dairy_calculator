@@ -2,7 +2,6 @@ import 'package:dairy_calculator/constant/color.dart';
 import 'package:dairy_calculator/constant/images.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
-import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textform_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +49,6 @@ class _InformationState extends State<Information> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
-        bottomNavigationBar: const CustomBottomNavigationBar(),
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

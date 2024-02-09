@@ -1,5 +1,9 @@
+import 'dart:html';
+
 import 'package:dairy_calculator/presentation/Information.dart';
+import 'package:dairy_calculator/presentation/calcualtor.dart';
 import 'package:dairy_calculator/presentation/homescreen.dart';
+import 'package:dairy_calculator/presentation/notification_screen.dart';
 import 'package:dairy_calculator/presentation/profile_screen.dart';
 import 'package:dairy_calculator/presentation/signup_screen.dart';
 import 'package:dairy_calculator/presentation/splachscreen.dart';
@@ -13,6 +17,8 @@ class Routes {
   static String signup = "/signup";
   static String profile = "/Profile";
   static String info = '/info';
+  static String notify='/notify';
+  static String calci='/calculator';
 
   GoRouter get router => _goRouter;
   late final GoRouter _goRouter =
@@ -36,6 +42,13 @@ class Routes {
     GoRoute(
       path: profile,
       builder: (context, state) => const ProfileScreen(),
+    ),    GoRoute(
+      path: notify,
+      builder: (context, state) => const NotificationScreen(),
+    ),
+       GoRoute(
+      path: calci,
+      builder: (context, state) => const CalculatorScreen(),
     )
   ]);
 

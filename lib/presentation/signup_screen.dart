@@ -1,7 +1,6 @@
 import 'package:dairy_calculator/constant/images.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
-import 'package:dairy_calculator/widget/bottom.dart';
 import 'package:dairy_calculator/widget/textform_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,6 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: const CustomBottomNavigationBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -128,9 +126,7 @@ class _SignUpState extends State<SignUp> {
                         if (value!.isEmpty) {
                           return "Please Enter OTP ";
                         }
-                        if (verifyId.toString() != value) {
-                          return "please enter correct otp";
-                        }
+
                         return null;
                       },
                       onOutSideTap: (event) {
@@ -151,7 +147,6 @@ class _SignUpState extends State<SignUp> {
                             print('User token: ${value.user?.uid}');
                             LocaleStorage.saveUserID(
                                 value.user?.uid.toString() ?? "");
-
                             setState(() {
                               info = true;
                               context.push(Routes.info);
@@ -187,9 +182,13 @@ class _SignUpState extends State<SignUp> {
   }
 
   invalidmessage() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 100,
+          right: 20,
+          left: 20),
       backgroundColor: Colors.red,
-      content: Text("Invaild Otp"),
+      content: const Text("Invaild Otp"),
     ));
   }
 }

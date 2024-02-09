@@ -1,6 +1,7 @@
 import 'package:dairy_calculator/utils/localpreferences.dart';
+import 'package:dairy_calculator/widget/bottom.dart';
+import 'package:dairy_calculator/widget/in_app_web_view.dart';
 import 'package:flutter/material.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +14,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const Floating(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: FutureBuilder<Map<String, String?>>(
         future: LocaleStorage.getProfile(),
         builder: (context, snapshot) {

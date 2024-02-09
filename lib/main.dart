@@ -16,10 +16,11 @@ void main() async {
   runApp(const MyApp());
 }
 
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print("main ${message.notification?.title}");
-  print("main ${message.notification?.body}");
+  print("main title ${message.notification?.title}");
+  print("main body ${message.notification?.body}");
 }
 
 class MyApp extends StatelessWidget {
