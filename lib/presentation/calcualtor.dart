@@ -11,17 +11,12 @@ class CalculatorScreen extends StatefulWidget {
 class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child:
-              const Icon(Icons.play_circle_outline_sharp, color: Colors.grey),
+    return  SafeArea(
+      child: Scaffold(
+        bottomNavigationBar:const CustomBottomNavigationBar(),
+        body: Column(
+          children: [Text("calculator")],
         ),
-      bottomNavigationBar:CustomBottomNavigationBar(),
-      body: Column(
-        children: [Text("calculator")],
       ),
     );
   }

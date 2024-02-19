@@ -1,10 +1,14 @@
+import 'package:dairy_calculator/presentation/Information.dart';
+import 'package:dairy_calculator/presentation/profile_screen.dart';
 import 'package:dairy_calculator/repo/notification.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
-import 'package:dairy_calculator/widget/bottom.dart';
-import 'package:dairy_calculator/widget/in_app_web_view.dart';
-import 'package:dairy_calculator/widget/textwidget.dart';
+import 'package:dairy_calculator/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+
+import '../controller/splach_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,165 +38,150 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SplachScreenController splachController = Get.put(SplachScreenController());
+    splachController.startAnimation();
     return SafeArea(
       child: Scaffold(
-        endDrawer: Drawer(
-          // Set the width of the end drawer
-          width: MediaQuery.of(context).size.width *
-              0.7, // Adjust the percentage as needed
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text('End Drawer'),
-              ),
-              ListTile(
-                title: const Text('Item 1'),
-                onTap: () {
-                  // Update UI based on drawer item tapped
-                },
-              ),
-              ListTile(
-                title: const Text('Item 2'),
-                onTap: () {
-                  // Update UI based on drawer item tapped
-                },
-              ),
-              // Add more ListTile widgets as needed
-            ],
-          ),
-        ),
-        floatingActionButton: const Floating(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: const CustomBottomNavigationBar(),
         appBar: AppBar(
-          toolbarHeight: 80.h,
-          automaticallyImplyLeading: false,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextWidget(
-                text: "Welcome ",
-                fontWeight: FontWeight.bold,
-                fontSize: 25.sp,
-              ),
-              TextWidget(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
-                text: name.isNotEmpty
-                    ? "${name.substring(0, 1).toUpperCase()}${name.substring(1)}"
-                    : '',
-              )
-            ],
-          ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 10.w),
+              child: Icon(Icons.chat_rounded),
+            )
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data1")],
-                      ),
-                    ),
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data2")],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data3")],
-                      ),
-                    ),
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data4")],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data3")],
-                      ),
-                    ),
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data4")],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data3")],
-                      ),
-                    ),
-                    Container(
-                      height: 150.h,
-                      width: 150.w,
-                      decoration: const BoxDecoration(color: Colors.red),
-                      child: const Column(
-                        children: [Text("data4")],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-              ],
+        drawer: const ProfileScreen(),
+        body: Stack(
+          children: [
+            Obx(
+              () => AnimatedPositioned(
+                  duration: Duration(milliseconds: 1600),
+                  top: splachController.animate.value ? 80.h : -2,
+                  left: splachController.animate.value ? 90.w : -5,
+                  child: const Image(
+                    image: AssetImage("asset/CowLogo.png"),
+                    height: 200,
+                    width: 200,
+                  )),
             ),
-          ),
+            Obx(
+              () => AnimatedPositioned(
+                duration: const Duration(milliseconds: 1600),
+                top: 330.h,
+                left: splachController.animate.value ? 30 : -80,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1600),
+                  opacity: splachController.animate.value ? 1 : 0,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 130.h,
+                        width: 130.h,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.black),
+                                top: BorderSide(color: Colors.black),
+                                left: BorderSide(color: Colors.black),
+                                right: BorderSide(color: Colors.black)),
+                            image: DecorationImage(
+                                image: AssetImage("asset/calci.png"),
+                                fit: BoxFit.fill)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Obx(
+              () => AnimatedPositioned(
+                duration: const Duration(milliseconds: 1600),
+                top: 480.h,
+                left: splachController.animate.value ? 30 : -80,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1600),
+                  opacity: splachController.animate.value ? 1 : 0,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 130.h,
+                        width: 130.h,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.black),
+                                top: BorderSide(color: Colors.black),
+                                left: BorderSide(color: Colors.black),
+                                right: BorderSide(color: Colors.black)),
+                            image: DecorationImage(
+                                image: AssetImage("asset/book.png"),
+                                fit: BoxFit.fill)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Obx(
+              () => AnimatedPositioned(
+                duration: const Duration(milliseconds: 1600),
+                top: 330.h,
+                left: splachController.animate.value ? 200.w : -80,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1600),
+                  opacity: splachController.animate.value ? 1 : 0,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 130.h,
+                        width: 130.h,
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.black),
+                                top: BorderSide(color: Colors.black),
+                                left: BorderSide(color: Colors.black),
+                                right: BorderSide(color: Colors.black)),
+                            image: DecorationImage(
+                                image: AssetImage("asset/calci.png"),
+                                fit: BoxFit.fill)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Obx(
+              () => AnimatedPositioned(
+                duration: const Duration(milliseconds: 1600),
+                top: 480.h,
+                left: splachController.animate.value ? 200.w : -80,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1600),
+                  opacity: splachController.animate.value ? 1 : 0,
+                  child: InkWell(
+                    onTap: () {
+                      context.push(Routes.cowinfo);
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 130.h,
+                          width: 130.h,
+                          decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(color: Colors.black),
+                                  top: BorderSide(color: Colors.black),
+                                  left: BorderSide(color: Colors.black),
+                                  right: BorderSide(color: Colors.black)),
+                              image: DecorationImage(
+                                  image: AssetImage("asset/cowgame.png"),
+                                  fit: BoxFit.fill)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

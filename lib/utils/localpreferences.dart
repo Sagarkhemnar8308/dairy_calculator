@@ -11,6 +11,10 @@ class LocaleStorage {
     await instance.setString("userID", userID);
   }
 
+  static Future<void> savePin(String pin) async {
+    await instance.setString("pin", pin);
+  }
+
   static Future<void> saveProfile(
       String name, String surname, String village, String pincode) async {
     await instance.setString("name", name);

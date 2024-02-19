@@ -8,7 +8,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  
 
+   List<RemoteMessage> notificationList = [];
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -49,13 +51,14 @@ class NotificationServices {
 
   void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
-
       if (Platform.isAndroid) {
         initLoaclNotification(context, message);
         showNotifications(message);
+        notificationList.add(message);
+        printNotificationList();
       }
     });
-  } 
+  }
 
   Future<String?> getDeviceToken() async {
     String? token = await messaging.getToken();
@@ -99,5 +102,17 @@ class NotificationServices {
       event.toString();
       print("refresh");
     });
+  }
+
+  void handleNotification(BuildContext context, RemoteMessage message) {}
+
+  void printNotificationList() {
+    print("Printing Notification List:");
+    for (var message in notificationList) {
+      print("Title: ${message.notification?.title}");
+      print("Body: ${message.notification?.body}");
+      print("Data: ${message.data}");
+      print("--------------");
+    }
   }
 }
