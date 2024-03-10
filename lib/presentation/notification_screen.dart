@@ -16,12 +16,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return SafeArea(
       child: Scaffold(
       //  bottomNavigationBar: const CustomBottomNavigationBar(),
-        appBar: AppBar(title: const Text("Notifications")),
+        appBar: AppBar(title: const Text("Notifications"), titleSpacing: 0,),
         body: ListView.builder(
           itemBuilder: (context,index) {
             return ListTile(
               title: Text("${_notificationServices.notificationList.length}"),
-              subtitle: Text( "Body Not Found"),
+              subtitle: const Text( "Body Not Found"),
             );
           },
           itemCount:4,
