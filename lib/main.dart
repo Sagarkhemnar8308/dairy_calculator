@@ -1,5 +1,6 @@
 
 import 'package:dairy_calculator/firebase_options.dart';
+import 'package:dairy_calculator/services/database.dart';
 import 'package:dairy_calculator/utils/localpreferences.dart';
 import 'package:dairy_calculator/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   await LocaleStorage.init();
   await GetStorage.init();
+  await signInUserAnon();
   runApp(const MyApp());
 }
 

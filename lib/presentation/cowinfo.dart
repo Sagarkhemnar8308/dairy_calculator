@@ -41,7 +41,7 @@ class _CowInfoState extends State<CowInfo> {
         ),
       ),
       body: PageView.builder(
-        itemCount: 5,
+        itemCount: 3,
         controller: controller,
         itemBuilder: (BuildContext context, int itemIndex) {
           if (itemIndex == 0) {

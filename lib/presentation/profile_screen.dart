@@ -179,6 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       selectedIamge = File(returnimage.path);
       _image = File(returnimage.path).readAsBytesSync();
     });
+    // ignore: use_build_context_synchronously
     context.pop();
   }
 
@@ -191,6 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       selectedIamge = File(returnimage.path);
       _image = File(returnimage.path).readAsBytesSync();
     });
+    // ignore: use_build_context_synchronously
     context.pop();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dairy_calculator/presentation/Information.dart';
 import 'package:dairy_calculator/presentation/calcualtor.dart';
+import 'package:dairy_calculator/presentation/cow_dates_save.dart';
 import 'package:dairy_calculator/presentation/cowinfo.dart';
 import 'package:dairy_calculator/presentation/homescreen.dart';
 import 'package:dairy_calculator/presentation/notification_screen.dart';
@@ -19,10 +20,11 @@ class Routes {
   static String notify='/notify';
   static String calci='/calculator';
   static String cowinfo="/cowinfo";
+ static String cowTable="/cowtable";
 
   GoRouter get router => _goRouter;
   late final GoRouter _goRouter =
-      GoRouter(initialLocation:initilization(), routes: [
+      GoRouter(initialLocation:home, routes: [
     GoRoute(
       path: splachScreen,
       builder: (context, state) => const SplachScreen(),
@@ -50,7 +52,10 @@ class Routes {
       path: calci,
       builder: (context, state) => const CalculatorScreen(),
     ),
-
+  GoRoute(
+      path: cowTable,
+      builder: (context, state) => const CowDateTable(),
+    ),
 GoRoute(
       path: cowinfo,
       builder: (context, state) => const CowInfo(),

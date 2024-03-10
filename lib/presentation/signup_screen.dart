@@ -63,7 +63,7 @@ class _SignUpState extends State<SignUp> {
                     return " कृपया मोबाइल नंबर टाका";
                   }
                   if (value.length != 13) {
-                    return "+91 कृपया 10 अंकी नंबर टाका ";
+                    return "+91 आवश्यक आहे";
                   }
                   return null;
                 },
@@ -155,12 +155,12 @@ class _SignUpState extends State<SignUp> {
                                 setState(() {
                                   info = true;
                                 });
-                                // ignore: use_build_context_synchronously
                                 validmessage();
                                 // ignore: use_build_context_synchronously
                                 context.push(Routes.info);
                               }
                             } catch (e) {
+                              // ignore: avoid_print
                               print('Error signing in: $e');
                               invalidmessage();
                             }
